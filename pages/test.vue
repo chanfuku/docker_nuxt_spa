@@ -8,7 +8,7 @@
 
     <button @click="addDogImage">犬画像追加</button>
     <div v-if="$fetchState.pending">
-        <img class="loading__img" src="@/assets/img/loading-spin.svg">
+      <img class="loading__img" src="@/assets/img/loading-spin.svg">
     </div>
     <div v-else class="imagebox">
       <img :src="image" v-for="image in images" :key="image">
@@ -22,33 +22,48 @@ import Vue from 'vue'
 export default Vue.extend({
   computed: {
     images (): string[] {
+      log('computed')
       return this.$store.state.images
     },
   },
   async fetch(): Promise<void> {
-    // console.log(this.$nuxt.context)
-    console.log('test.vueです')
+    log('fetch')
     await this.$store.dispatch('fetchRandomDog')
+  },
+  async mounted(): Promise<void> {
+    log('mounted')
+    await this.$store.dispatch('fetchRandomCat')
+  },
+  async created(): Promise<void> {
+    log('created')
   },
   methods: {
     async addDogImage(): Promise<void> {
+      log('addDogImage')
       await this.$fetch()
     },
     async toTop(): Promise<void> {
+      log('toTop')
       window.location.href = '/'
     },
     async push(): Promise<void> {
+      log('push')
       this.$router.push('/')
     },
   }
 })
+
+const log = (funcName: string): void => {
+  const str = `${funcName}: client=${process.client} server=${process.server}`
+  console.log(str)
+}
 </script>
 
 <style scoped>
 .loading__img {
   width:30%;
 }
-.imagebox {
-  max-width: 100px;
+.imagebox img {
+  width: 30%;
 }
 </style>

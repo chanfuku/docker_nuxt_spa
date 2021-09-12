@@ -15,4 +15,8 @@ export const actions = {
       commit('ADD_IMAGE', resJson.message)
     }
   },
+  async fetchRandomCat ({ commit }) {
+    const resJson = await this.$axios.$get('https://api.thecatapi.com/v1/images/search?format=json')
+    commit('ADD_IMAGE', resJson[0].url)
+  },
 }

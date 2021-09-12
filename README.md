@@ -27,7 +27,7 @@ $docker-compose run --rm nuxt npx create-nuxt-app --overwrite-dir .
 ? Linting tools: (Press <space> to select, <a> to toggle all, <i> to invert selection)
 ? Testing framework: None
 ? Rendering mode: Single Page App
-? Deployment target: Static (Static/Jamstack hosting)
+? Deployment target: Server (Node.js hosting)
 ? Development tools: (Press <space> to select, <a> to toggle all, <i> to invert selection
 )
 ? What is your GitHub username? chanfuku
