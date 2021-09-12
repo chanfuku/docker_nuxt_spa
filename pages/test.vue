@@ -6,7 +6,7 @@
     <p><NuxtLink to="/">NuxtLinkでトップに戻る</NuxtLink></p>
     <p><button @click="push">$router.pushでトップに戻る</button></p>
 
-    <button @click="addDogImage">犬画像追加</button>
+    <button @click="addCatImage">ねこ画像追加する</button>現在{{ images.length }}匹
     <div v-if="$fetchState.pending">
       <img class="loading__img" src="@/assets/img/loading-spin.svg">
     </div>
@@ -28,18 +28,17 @@ export default Vue.extend({
   },
   async fetch(): Promise<void> {
     log('fetch')
-    await this.$store.dispatch('fetchRandomDog')
+    await this.$store.dispatch('fetchRandomCat')
   },
   async mounted(): Promise<void> {
     log('mounted')
-    await this.$store.dispatch('fetchRandomCat')
   },
   async created(): Promise<void> {
     log('created')
   },
   methods: {
-    async addDogImage(): Promise<void> {
-      log('addDogImage')
+    async addCatImage(): Promise<void> {
+      log('addCatImage')
       await this.$fetch()
     },
     async toTop(): Promise<void> {
