@@ -12,6 +12,9 @@ $docker-compose up
 http://localhost:3000/
 ```
 
+- Demo
+[https://nuxt-spa-ebato.herokuapp.com/](https://nuxt-spa-ebato.herokuapp.com/){:target="_blank"}
+
 - このプロジェクトは以下の手順で作成しました。
 ```
 $cd docker_nuxt_spa/docker/nuxt
