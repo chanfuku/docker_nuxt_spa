@@ -1,14 +1,31 @@
 <template>
-  <div v-if="imageUrl">
-    <l-map
-      ref="myMap" 
-      style="height: calc(60vh)"
-      :center="center"
-      :crs="crs"
-      :min-zoom="-25"
-    >
-      <l-image-overlay :url="imageUrl" :bounds="bounds" @ready="ready"></l-image-overlay>
-    </l-map>
+  <div>
+    <p><NuxtLink to="/">トップに戻る</NuxtLink></p>
+    <div v-if="imageUrl">
+      <l-map
+        ref="myMap" 
+        style="height: calc(60vh)"
+        :center="center"
+        :crs="crs"
+        :min-zoom="-25"
+      >
+        <l-image-overlay :url="imageUrl" :bounds="bounds" @ready="ready"></l-image-overlay>
+        <template v-for="(line, index) in lines">
+          <span :key="index">
+            <l-polyline
+              v-if="line.layerType === 'polyline'"
+              :lat-lngs="line.latlngs"
+              color="blue"
+            />
+            <l-polygon
+              v-if="['polygon', 'rectangle'].includes(line.layerType)"
+              :lat-lngs="line.latlngs"
+              :color="line.layerType === 'polygon' ? 'green' : 'red'"
+            />
+          </span>
+        </template>
+      </l-map>
+    </div>
   </div>
 </template>
 
@@ -48,12 +65,14 @@ export default Vue.extend({
       // @ts-ignore
       this.$leafletHelper.setDrawPolylineTooltipLocal()
 
+      const self = this
       // @ts-ignore
       map.on(L.Draw.Event.CREATED, function (event: any) {
         const layer: Polyline = event.layer
         const layerType = event.layerType
         const latlngs = layer.getLatLngs() as L.LatLng[]
-        alert(layerType + ':' + latlngs)
+
+        self.$store.dispatch('addLine', { layerType, latlngs })
       })
     }
   },
@@ -66,6 +85,9 @@ export default Vue.extend({
   computed: {
     imageUrl () {
       return this.$store.state.images[0]
+    },
+    lines () {
+      return this.$store.state.lines
     }
   }
 })
