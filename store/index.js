@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export const state = () => ({
   images: [],
   lines: []
@@ -9,6 +11,9 @@ export const mutations = {
   },
   ADD_LINE(state, payload) {
     state.lines.push(payload)
+  },
+  UPDATE_LINE(state, { index, line }) {
+    Vue.set(state.lines, index, line)
   }
 }
 
@@ -25,5 +30,8 @@ export const actions = {
   },
   async addLine ({ commit }, payload) {
     commit('ADD_LINE', payload)
+  },
+  async updateLine ({ commit }, payload) {
+    commit('UPDATE_LINE', payload)
   },
 }

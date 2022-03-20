@@ -12,6 +12,11 @@
         <l-image-overlay :url="imageUrl" :bounds="bounds" @ready="ready"></l-image-overlay>
         <template v-for="(line, index) in lines">
           <span :key="index">
+            <l-marker
+              :lat-lng="line.latlngs[0]"
+              :draggable="true"
+              @update:lat-lng="updateLatLng($event, index, line)"
+            />
             <l-polyline
               v-if="line.layerType === 'polyline'"
               :lat-lngs="line.latlngs"
@@ -70,10 +75,28 @@ export default Vue.extend({
       map.on(L.Draw.Event.CREATED, function (event: any) {
         const layer: Polyline = event.layer
         const layerType = event.layerType
-        const latlngs = layer.getLatLngs() as L.LatLng[]
+        const latlngs = layer.getLatLngs().flat()
 
         self.$store.dispatch('addLine', { layerType, latlngs })
       })
+    },
+    updateLatLng(e: any, index: number, line: { layerType: 'polyline' | 'polygon' | 'rectangle', latlngs: L.LatLng[] }) {
+      // { 縦, 横 }
+      const { lat: eLat, lng: eLng } = e
+      // 対象図形の1番目の{ 縦, 横}
+      const { lat: lLat, lng: lLng } = line.latlngs[0]
+      // 縦横移動pxを取得
+      const latDiff = eLat - lLat // 縦移動px
+      const lngDiff = eLng - lLng // 横移動px
+      // 移動後の位置情報
+      const latlngs = line.latlngs.map((latlng: L.LatLng) => {
+        return { lat: latlng.lat + latDiff, lng: latlng.lng + lngDiff }
+      })
+      const payload = {
+        index,
+        line: { ...line, latlngs }
+      }
+      this.$store.dispatch('updateLine', payload)
     }
   },
   async fetch(): Promise<void> {
