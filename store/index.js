@@ -2,18 +2,22 @@ import Vue from 'vue'
 
 export const state = () => ({
   images: [],
-  lines: []
+  leftLine: null,
+  rightLines: [],
 })
 
 export const mutations = {
   ADD_IMAGE(state, imgSrc) {
     state.images.unshift(imgSrc)
   },
-  ADD_LINE(state, payload) {
-    state.lines.push(payload)
+  ADD_LEFT_LINE(state, payload) {
+    state.leftLine = { ...payload }
   },
-  UPDATE_LINE(state, { index, line }) {
-    Vue.set(state.lines, index, line)
+  ADD_RIGHT_LINE(state, payload) {
+    state.rightLines.push(payload)
+  },
+  UPDATE_RIGHT_LINE(state, { index, line }) {
+    Vue.set(state.rightLines, index, line)
   }
 }
 
@@ -28,10 +32,13 @@ export const actions = {
     const resJson = await this.$axios.$get('https://api.thecatapi.com/v1/images/search?format=json')
     commit('ADD_IMAGE', resJson[0].url)
   },
-  async addLine ({ commit }, payload) {
-    commit('ADD_LINE', payload)
+  async addLeftLine ({ commit }, payload) {
+    commit('ADD_LEFT_LINE', payload)
   },
-  async updateLine ({ commit }, payload) {
-    commit('UPDATE_LINE', payload)
+  async addRightLine ({ commit }, payload) {
+    commit('ADD_RIGHT_LINE', payload)
+  },
+  async updateRightLine ({ commit }, payload) {
+    commit('UPDATE_RIGHT_LINE', payload)
   },
 }

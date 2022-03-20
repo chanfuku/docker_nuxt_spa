@@ -18,7 +18,25 @@ export const getHTMLImageElement = (link: string): Promise<HTMLImageElement> => 
     img.src = link
   })
 }
-export const drawToolBarOptions = (featureGroup: L.FeatureGroup) => ({
+export const drawToolBarOptionsLeft = (featureGroup: L.FeatureGroup) => ({
+  draw: {
+    polyline: false,
+    polygon: false,
+    rectangle: {
+      shapeOptions: { color: '#E6902E' },
+      showLength: false
+    },
+    circle: false,
+    circlemarker: false,
+    marker: false
+  },
+  edit: {
+    featureGroup,
+    edit: false,
+    remove: false
+  }
+})
+export const drawToolBarOptionsRight = (featureGroup: L.FeatureGroup) => ({
   draw: {
     polyline: {
       shapeOptions: { color: '#E6902E' },
@@ -54,7 +72,8 @@ export const setDrawPolylineTooltipLocal = () => {
 const leafletHelper = {
   getBounds,
   getHTMLImageElement,
-  drawToolBarOptions,
+  drawToolBarOptionsLeft,
+  drawToolBarOptionsRight,
   setDrawPolylineTooltipLocal,
 }
 
