@@ -16,10 +16,26 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Upload build result
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build result
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist/
       - name: Deploy  # S3にデプロイ
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-1
         run: | # S3のnuxt-spa.ebato-tech-blog.tkバケットにデプロイ
-          aws s3 cp dist/* --region ap-northeast-1 build s3://nuxt-spa.ebato-tech-blog.tk
+          aws s3 sync ./dist s3://nuxt-spa.ebato-tech-blog.tk
 
