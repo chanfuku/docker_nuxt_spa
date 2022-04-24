@@ -40,6 +40,7 @@ jobs:
           aws s3 sync ./dist s3://nuxt-spa.ebato-tech-blog.tk
 
   cache-invalidation:
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: CacheInvalidation  # 全キャッシュクリア
