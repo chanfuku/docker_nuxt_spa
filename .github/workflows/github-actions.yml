@@ -49,4 +49,3 @@ jobs:
           AWS_REGION: ap-northeast-1
         run:
           aws cloudfront create-invalidation --distribution-id E149NJU26D1UYW --paths "/*"
-
