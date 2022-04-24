@@ -6,7 +6,8 @@
     <p><NuxtLink to="/test">NuxtLinkでテストページへ</NuxtLink></p>
     <p><button @click="push">$router.pushでテストページへ</button></p>
     <p><NuxtLink to="/leaflet">leafletページへ</NuxtLink></p>
-    <p>aaa</p>
+    <p class="test">for cloudfront cache clear test</p>
+    <p><img src="nuxt.png"></p>
   </div>
 </template>
 
