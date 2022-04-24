@@ -6,6 +6,7 @@
     <p><NuxtLink to="/test">NuxtLinkでテストページへ</NuxtLink></p>
     <p><button @click="push">$router.pushでテストページへ</button></p>
     <p><NuxtLink to="/leaflet">leafletページへ</NuxtLink></p>
+    <p>aaa</p>
   </div>
 </template>
 

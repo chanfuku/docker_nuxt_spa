@@ -13,7 +13,7 @@ http://localhost:3000/
 ```
 
 - Demo
-[https://nuxt-spa-ebato.herokuapp.com/](https://nuxt-spa-ebato.herokuapp.com/){:target="_blank"}
+[https://nuxt-spa-ebato.herokuapp.com/](https://nuxt-spa-ebato.herokuapp.com/)
 
 - このプロジェクトは以下の手順で作成しました。
 ```
