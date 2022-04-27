@@ -1,4 +1,4 @@
-name: Build Nuxt SPA on S3
+name: Build Nuxt SPA on S3 and Cache Invalidation on CloudFront
 on:
   push:
       branches:
