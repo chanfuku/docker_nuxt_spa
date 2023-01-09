@@ -13,7 +13,7 @@ http://localhost:3000/
 ```
 
 - Demo
-[https://nuxt-spa-ebato.herokuapp.com/](https://nuxt-spa-ebato.herokuapp.com/)
+[https://thirsty-saha-92b0f8.netlify.app/](https://thirsty-saha-92b0f8.netlify.app/)
 
 - このプロジェクトは以下の手順で作成しました。
 ```
